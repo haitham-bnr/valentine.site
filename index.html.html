@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Proposal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .second-page {
+            display: none;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #e91e63;
+            margin-bottom: 20px;
+        }
+        .heart {
+            font-size: 50px;
+            color: red;
+            margin: 20px 0;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #yes {
+            background-color: #4caf50;
+            color: white;
+        }
+        #no {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+        }
+        .bear {
+            font-size: 100px;
+            margin: 20px;
+        }
+        .second-heart {
+            font-size: 50px;
+            color: red;
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-page">
+        <h1>Jihane, would you be my Valentine?</h1>
+        <div class="heart">❤️</div>
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+    </div>
+
+    <div class="second-page" id="second-page">
+        <div class="bear">🐻</div>
+        <div class="second-heart">❤️</div>
+        <p>Happy Valentine's Day! I love you! 💕</p>
+    </div>
+
+    <!-- Audio element for cute music (replace src with a suitable free audio URL) -->
+    <audio id="music" preload="auto">
+        <source src="https://www.soundjay.com/misc/sounds/romantic-piano-01.mp3" type="audio/mpeg">
+        <!-- Fallback: If the above doesn't work, use a different free source like https://freesound.org/data/previews/316/316847_5123451-lq.mp3 (a short romantic clip) -->
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const noButton = document.getElementById('no');
+        const yesButton = document.getElementById('yes');
+        const mainPage = document.getElementById('main-page');
+        const secondPage = document.getElementById('second-page');
+        const music = document.getElementById('music');
+
+        // Function to move the "No" button to a random position anywhere in the container
+        function moveNoButton() {
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = noButton.getBoundingClientRect();
+
+            // Calculate random position within the container
+            const maxX = containerRect.width - buttonRect.width;
+            const maxY = containerRect.height - buttonRect.height;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+        }
+
+        // Move the "No" button on mouseover (when she tries to click it)
+        noButton.addEventListener('mouseover', moveNoButton);
+
+        // Also move it periodically every 0.3 seconds
+        setInterval(moveNoButton, 300);
+
+        // Handle "Yes" button click: Play music and show the second page
+        yesButton.addEventListener('click', () => {
+            music.play(); // Play the cute music
+            mainPage.style.display = 'none';
+            secondPage.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
